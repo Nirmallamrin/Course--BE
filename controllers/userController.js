@@ -2,15 +2,14 @@ import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
 
- const signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body
-    console.log(email);
  
     const userExist = await User.findOne({ email });
     
     
-    if (!userExist) {
+    if (userExist) {
       return res.send("User is already exist");
     }
     
@@ -40,9 +39,9 @@ import { generateToken } from "../utils/generateToken.js";
   }
 };
 
-// signin
 
- const signin = async (req, res) => {
+
+export const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -66,5 +65,3 @@ import { generateToken } from "../utils/generateToken.js";
     res.status(500).send("Internal Server Error");
   }
 };
-
-export {signup, signin}
