@@ -11,6 +11,7 @@ import {
   signin,
   signup,
 } from "../controllers/instructorController.js";
+import authenticateAdmin from "../middlewares/admin-middleware.js";
 
 const instructorRouter = express.Router();
 
@@ -20,7 +21,7 @@ instructorRouter.post("/signin", signin);
 instructorRouter.get("/get-courses", getCourses);
 instructorRouter.get("/get-instructors", getAllInstructors);
 
-instructorRouter.post("/add-courses", upload.single("image"), createCourse);
+instructorRouter.post("/add-courses",authenticateAdmin, upload.single("image"), createCourse);
 
 instructorRouter.put("/update-courses/:id", updateCourse);
 
